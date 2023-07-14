@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  getBrandProducts,
   getCategoryProducts,
   getHandPicked,
   getNewArrivals,
@@ -11,6 +12,7 @@ export const router = Router();
 router.get(
   "/",
   getCategoryProducts,
+  getBrandProducts,
   getSearchProductsAndBrands,
   getNewArrivals,
   getHandPicked,

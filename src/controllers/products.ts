@@ -63,6 +63,32 @@ export const getCategoryProducts: RequestHandler = async (
   });
 };
 
+export const getBrandProducts: RequestHandler = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { brand: brandId, page = 0 } = request.query;
+  if (!brandId) return next();
+  const startingOffset = parseInt(page as string) * 20;
+  const brand = await Brand.findByPk(parseInt(brandId as string));
+  const products =
+    (await brand?.$get("products", {
+      attributes: ["id", "title", "description", "price", "rate", "createdAt"],
+      include: [ProductImages, Brand, Category],
+      offset: startingOffset,
+      limit: 20,
+    })) ?? [];
+
+  return response.status(200).json({
+    error: false,
+    status: 200,
+    data: {
+      products: products,
+    },
+  });
+};
+
 export const getSearchProductsAndBrands: RequestHandler = async (
   request: Request,
   response: Response,
