@@ -17,7 +17,7 @@ import { passportConfig } from "./utils/passport-config";
 import cors from "cors";
 dotenv.config();
 const app = express();
-const PORT = parseInt(process.env.PORT ?? "3000");
+const PORT = parseInt(process.env.NODE_DOCKER ?? "3000");
 app.use(passport.initialize());
 passportConfig();
 const upload = multer();
@@ -44,7 +44,7 @@ process.on("uncaughtException", (error: Error) => {
 getConnection().authenticate().then(
   () => {
     getConnection().sync({alter:true}).then(() => {
-      app.listen(PORT, "localhost", () => {
+      app.listen(PORT,  () => {
         console.log("server is listening on port ", PORT);
       });
     });

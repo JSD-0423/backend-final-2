@@ -14,16 +14,19 @@ import { Variant } from "../models/Variant";
 import { ProductVariant } from "../models/Product-Variant";
 import { Category } from "../models/Category";
 import { Brand } from "../models/Brand";
+import { configDotenv } from "dotenv";
+configDotenv();
 
-let connection:Sequelize ;
-const getConnection =()=>{
-  if (!connection){
-    connection= new Sequelize({
-      dialect: development.dialect as Dialect,
-      database: development.database,
-      host: development.host,
-      password: development.password,
-      username: development.username,
+let connection: Sequelize;
+const getConnection = () => {
+  if (!connection) {
+    connection = new Sequelize({
+      dialect: process.env.MYSQL_DIALECT as Dialect,
+      database: process.env.MYSQL_DATABASE,
+      host: process.env.MYSQL_HOST,
+      password: "root",
+      username: "root",
+      port: Number(process.env.MYSQLDB_DOCKER_PORT ) || 3306,
       logging: console.log,
       models: [
         Test,
