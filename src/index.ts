@@ -9,6 +9,7 @@ import { router as favouritesRouter } from "./routes/favourites";
 import { router as ordersRouter } from "./routes/orders";
 import { router as cartsRouter } from "./routes/carts";
 import { router as addressesRouter } from "./routes/addresses";
+import { router as utilsRouter } from "./routes/utils";
 import getConnection from "./database/config";
 import { errorHandler } from "./middlewares/error-handler";
 import multer from "multer";
@@ -32,6 +33,7 @@ app.use("/carts", cartsRouter);
 app.use("/favourites", favouritesRouter);
 app.use("/orders",ordersRouter);
 app.use("/addresses",addressesRouter);
+app.use("/utils",utilsRouter);
 app.use(errorHandler);
 process.on("unhandledRejection", (reason: Error | any) => {
   console.log("unhandled Rejection: ", reason.message | reason);
